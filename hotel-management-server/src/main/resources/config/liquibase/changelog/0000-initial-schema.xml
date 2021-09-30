@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<!-- app table tasks -->
+	<changeSet id="0001" author="webTechno">
+	
+		<!-- Room table -->
+		<createTable tableName="room">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="room_number" type="bigint" />
+            <column name="state" type="varchar(20)" />
+			<column name="category" type="varchar(20)" />
+		</createTable>
+		<addAutoIncrement catalogName="webTechno"
+			columnDataType="bigint" columnName="id" incrementBy="1"
+			schemaName="public" startWith="1" tableName="room" />
+
+		<!-- Reservation table -->
+		<createTable tableName="reservation">
+			<column name="price" type="float" />
+			<column name="date_reservation" type="timestamp" />
+			<column name="date_debut" type="timestamp" />
+			<column name="date_fin" type="timestamp" />
+			<column name="room_id" type="bigint" />
+			<column name="client_id" type="bigint" />
+		</createTable>
+
+		<!-- Client table -->
+		<createTable tableName="client">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="surname" type="varchar(50)" />
+			<column name="lastname" type="varchar(50)" />
+			<column name="nationality" type="varchar(50)" />
+			<column name="age" type="int" />
+		</createTable>
+		
+		<addAutoIncrement catalogName="webTechno"
+			columnDataType="bigint" columnName="id" incrementBy="1"
+			schemaName="public" startWith="1" tableName="client" />
+
+		<!-- Foreign Key -->
+		<addForeignKeyConstraint
+			baseColumnNames="room_id" baseTableName="reservation"
+			constraintName="fk_room_id" referencedColumnNames="id"
+			referencedTableName="room" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="client_id" baseTableName="reservation"
+			constraintName="fk_client_id" referencedColumnNames="id"
+			referencedTableName="client" />
+			
+</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,16 @@
+
+spring:
+  application:
+    name: 'hotel-management'
+  liquibase:
+    change-log: classpath:config/liquibase/master.xml  
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: 'jdbc:postgresql://localhost:5432/webtechno_hotel-management'
+    username: webTechno
+    password: webTechno
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+server:
+  port: 9090
